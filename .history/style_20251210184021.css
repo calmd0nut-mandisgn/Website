@@ -365,7 +365,7 @@ button svg {
     z-index: 10;
 
     /* Place Socials above the copyright */
-    bottom: calc(2rem + env(safe-area-inset-bottom));
+    bottom: calc(1.8rem + env(safe-area-inset-bottom));
   }
 
   .social-nav.mobile-only svg {

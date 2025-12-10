@@ -365,7 +365,7 @@ button svg {
     z-index: 10;
 
     /* Place Socials above the copyright */
-    bottom: calc(2rem + env(safe-area-inset-bottom));
+    bottom: calc(1.5rem + env(safe-area-inset-bottom));
   }
 
   .social-nav.mobile-only svg {
@@ -379,7 +379,7 @@ button svg {
   .interaction-area {
     margin-bottom: 1rem;
     width: 100%;
-    bottom: calc(1.5rem + env(safe-area-inset-bottom));
+    bottom: calc(3rem + env(safe-area-inset-bottom));
   }
 
   .signup-form {

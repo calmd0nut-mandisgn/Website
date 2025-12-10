@@ -359,13 +359,13 @@ button svg {
     display: flex;
     gap: 32px;
     align-items: center;
-    position: absolute; /* critical for placement */
+    position: relative; /* critical for placement */
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
 
     /* Place Socials above the copyright */
-    bottom: calc(2rem + env(safe-area-inset-bottom));
+    bottom: calc(1.5rem + env(safe-area-inset-bottom));
   }
 
   .social-nav.mobile-only svg {
@@ -379,7 +379,6 @@ button svg {
   .interaction-area {
     margin-bottom: 1rem;
     width: 100%;
-    bottom: calc(1.5rem + env(safe-area-inset-bottom));
   }
 
   .signup-form {
@@ -388,13 +387,14 @@ button svg {
 
   /* Mobile Copyright Positioning */
   .copyright {
+    position: relative;
     left: 0;
     width: 100%;
     text-align: center;
     font-size: 0.65rem;
 
     /* Ensure it sits at the bottom, respecting iPhone home bar */
-    bottom: max(0.5rem, env(safe-area-inset-bottom));
+    bottom: max(1rem, env(safe-area-inset-bottom));
   }
 }
 

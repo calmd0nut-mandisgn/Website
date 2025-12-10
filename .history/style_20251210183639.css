@@ -365,7 +365,7 @@ button svg {
     z-index: 10;
 
     /* Place Socials above the copyright */
-    bottom: calc(2rem + env(safe-area-inset-bottom));
+    bottom: calc(3.5rem + env(safe-area-inset-bottom));
   }
 
   .social-nav.mobile-only svg {
@@ -379,7 +379,6 @@ button svg {
   .interaction-area {
     margin-bottom: 1rem;
     width: 100%;
-    bottom: calc(1.5rem + env(safe-area-inset-bottom));
   }
 
   .signup-form {
@@ -394,7 +393,7 @@ button svg {
     font-size: 0.65rem;
 
     /* Ensure it sits at the bottom, respecting iPhone home bar */
-    bottom: max(0.5rem, env(safe-area-inset-bottom));
+    bottom: max(1.5rem, env(safe-area-inset-bottom));
   }
 }
 
