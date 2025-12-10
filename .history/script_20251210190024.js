@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  const words = ["beautiful", "anti-bacterial", "anti-humid", "fast-absorbent"];
+  const words = ["beautiful", "anti-bacterial", "anti-humid", "absorbent"];
   let wordIndex = 0;
   let charIndex = words[0].length;
   let isDeleting = false;
@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     let typeSpeed = 70;
-    if (isDeleting) typeSpeed = 45;
+    if (isDeleting) typeSpeed = 30;
 
     if (!isDeleting && charIndex >= currentWord.length) {
       isDeleting = true;

@@ -47,47 +47,46 @@ form.addEventListener("submit", (e) => {
     .catch((error) => console.error("Error:", error));
 });
 
-// --- 4. Typewriter Effect (Robust Version) ---
+// --- 4. Typewriter Effect ---
+const words = ["beautiful", "anti-bacterial", "anti-humid", "absorbent"];
+const el = document.getElementById("typewriter");
+let wordIndex = 0;
+let charIndex = words[0].length;
+let isDeleting = false;
+
+function type() {
+  const currentWord = words[wordIndex];
+
+  // Determine text to show based on deleting/typing state
+  if (isDeleting) {
+    el.textContent = currentWord.substring(0, charIndex - 1);
+    charIndex--;
+  } else {
+    el.textContent = currentWord.substring(0, charIndex + 1);
+    charIndex++;
+  }
+
+  // Speed controls
+  let typeSpeed = 150; // Typing speed
+  if (isDeleting) typeSpeed = 75; // Deleting speed (faster)
+
+  // Logic to switch states
+  if (!isDeleting && charIndex === currentWord.length) {
+    // Word finished typing, pause before deleting
+    isDeleting = true;
+    typeSpeed = 2000; // Wait 2 seconds before deleting
+  } else if (isDeleting && charIndex === 0) {
+    // Word finished deleting, switch to next word
+    isDeleting = false;
+    wordIndex = (wordIndex + 1) % words.length; // Loop back to start
+    typeSpeed = 500; // Pause briefly before typing new word
+  }
+
+  setTimeout(type, typeSpeed);
+}
+
+// Start the effect
 document.addEventListener("DOMContentLoaded", () => {
-  const el = document.getElementById("typewriter");
-
-  // Safety Check: If the span is missing, stop to prevent errors
-  if (!el) {
-    console.error("Could not find element with id 'typewriter'");
-    return;
-  }
-
-  const words = ["beautiful", "anti-bacterial", "anti-humid", "fast-absorbent"];
-  let wordIndex = 0;
-  let charIndex = words[0].length;
-  let isDeleting = false;
-
-  function type() {
-    const currentWord = words[wordIndex];
-
-    if (isDeleting) {
-      el.textContent = currentWord.substring(0, charIndex - 1);
-      charIndex--;
-    } else {
-      el.textContent = currentWord.substring(0, charIndex + 1);
-      charIndex++;
-    }
-
-    let typeSpeed = 70;
-    if (isDeleting) typeSpeed = 45;
-
-    if (!isDeleting && charIndex >= currentWord.length) {
-      isDeleting = true;
-      typeSpeed = 1000;
-    } else if (isDeleting && charIndex === 0) {
-      isDeleting = false;
-      wordIndex = (wordIndex + 1) % words.length;
-      typeSpeed = 500;
-    }
-
-    setTimeout(type, typeSpeed);
-  }
-
-  // Start the effect after 2 seconds
+  // Small delay to let the user read the first word initially
   setTimeout(type, 2000);
 });

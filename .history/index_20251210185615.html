@@ -148,6 +148,59 @@
       </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- <script src="script.js"></script> -->
+    <script>
+  console.log("Script loaded! Checking for typewriter...");
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const el = document.getElementById("typewriter");
+    
+    if (!el) {
+      console.error("ERROR: Cannot find <span id='typewriter'>");
+      return;
+    } 
+
+    const words = ["beautiful", "anti-bacterial", "anti-humid", "absorbent"];
+    let wordIndex = 0;
+    // START FIX: Initialize logic variables correctly
+    let charIndex = words[0].length; 
+    let isDeleting = false; 
+
+    function type() {
+      const currentWord = words[wordIndex];
+
+      // 1. TYPING/DELETING LOGIC
+      if (isDeleting) {
+        el.textContent = currentWord.substring(0, charIndex - 1);
+        charIndex--;
+      } else {
+        el.textContent = currentWord.substring(0, charIndex + 1);
+        charIndex++;
+      }
+
+      // 2. SPEED SETTINGS
+      let typeSpeed = 100; 
+      if (isDeleting) typeSpeed = 50; 
+
+      // 3. STATE SWITCHING (THE FIX IS HERE)
+      if (!isDeleting && charIndex >= currentWord.length) {
+        // Word is complete. Pause, then start deleting.
+        isDeleting = true;
+        charIndex = currentWord.length; // Safety reset
+        typeSpeed = 2000; // Wait 2 seconds
+      } else if (isDeleting && charIndex === 0) {
+        // Word is deleted. Switch to next word.
+        isDeleting = false;
+        wordIndex = (wordIndex + 1) % words.length;
+        typeSpeed = 500; // Pause briefly before typing next
+      }
+
+      setTimeout(type, typeSpeed);
+    }
+
+    // Start immediately
+    type();
+  });
+</script>
   </body>
 </html>

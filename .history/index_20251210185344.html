@@ -148,6 +148,60 @@
       </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- <script src="script.js"></script> -->
+    <script>
+  console.log("Script loaded! Checking for typewriter...");
+
+  document.addEventListener("DOMContentLoaded", () => {
+    // 1. Find the element
+    const el = document.getElementById("typewriter");
+    
+    if (!el) {
+      console.error("ERROR: I cannot find <span id='typewriter'> in the HTML.");
+      return;
+    } 
+    
+    console.log("Found element:", el); // Verify we found it
+
+    // 2. The Words
+    const words = ["beautiful", "anti-bacterial", "anti-humid", "absorbent"];
+    let wordIndex = 0;
+    let charIndex = words[0].length;
+    let isDeleting = false;
+
+    // 3. The Typing Logic
+    function type() {
+      const currentWord = words[wordIndex];
+
+      if (isDeleting) {
+        el.textContent = currentWord.substring(0, charIndex - 1);
+        charIndex--;
+      } else {
+        el.textContent = currentWord.substring(0, charIndex + 1);
+        charIndex++;
+      }
+
+      // Speed Settings
+      let typeSpeed = 100; // Typing speed
+      if (isDeleting) typeSpeed = 50; // Backspace speed
+
+      // Logic to switch between typing/deleting
+      if (!isDeleting && charIndex === currentWord.length) {
+        isDeleting = true;
+        typeSpeed = 2000; // Wait 2 seconds before deleting
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        wordIndex = (wordIndex + 1) % words.length;
+        typeSpeed = 500; // Pause before typing next word
+      }
+
+      setTimeout(type, typeSpeed);
+    }
+
+    // 4. Start immediately
+    console.log("Starting typewriter effect now...");
+    type();
+  });
+</script>
   </body>
 </html>
