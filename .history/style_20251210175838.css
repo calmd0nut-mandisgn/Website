@@ -342,31 +342,18 @@ button svg {
     margin-bottom: 1rem;
   }
 
-  /* --- FIX V3: ULTRA-FINE MOBILE ICONS --- */
+  /* --- FIX: MOBILE SOCIAL ICONS --- */
   .social-nav.mobile-only {
-    gap: 32px;
-    bottom: 3.5rem;
+    gap: 40px; /* Increase space between icons (was 24px) */
+    bottom: 4rem; /* Move them up slightly so they don't crowd the copyright */
     align-items: center;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
   }
 
   .social-nav.mobile-only svg {
-    width: 20px; /* Back to standard size, which looks larger on mobile anyway */
-    height: 20px;
-
-    /* THE SECRET SAUCE: Thinner lines + Opacity */
-    stroke-width: 1px; /* Hairline thin */
-    opacity: 0.75; /* Lowers visual weight significantly */
-
-    transition: opacity 0.3s ease;
-  }
-
-  /* Make them darker when you touch them so you know it worked */
-  .social-nav.mobile-only a:active svg {
-    opacity: 1;
-    stroke-width: 1.5px;
+    width: 26px; /* Bigger size (was 20px) */
+    height: 26px;
+    stroke-width: 1.2px; /* Thinner lines to match your elegant font */
+    opacity: 0.8; /* Slight transparency for a softer look */
   }
 }
 /* --- COPYRIGHT FOOTER --- */
