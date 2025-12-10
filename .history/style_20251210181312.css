@@ -379,16 +379,11 @@ button svg {
   }
 
   /* Adjust Copyright for small screens */
-/* --- 2. COPYRIGHT (Moved up above the home bar) --- */
   .copyright {
-    left: 0;
-    width: 100%;
-    text-align: center;
+    bottom: 1.5vh;
     font-size: 0.65rem;
-    
-    /* FIX: Ensures it sits ABOVE the black swipe bar */
-    bottom: max(1.5rem, env(safe-area-inset-bottom) + 1rem);
   }
+}
 /* --- COPYRIGHT FOOTER --- */
 .copyright {
   position: absolute;
