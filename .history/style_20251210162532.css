@@ -1,0 +1,403 @@
+/* --- 1. RESET & GLOBAL VARIABLES --- */
+:root {
+  --bg-color: #f4f3ef;
+  --text-color: #2c2c2c;
+  --accent-color: #a67b62; /* Muted Terracotta */
+  --grid-desktop: 60fr 40fr;
+  --grid-mobile: 1fr 1fr;
+  --ease-slow: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: "Inter", sans-serif;
+  height: 100dvh;
+  width: 100vw;
+  overflow: hidden; /* STRICT NO SCROLL */
+}
+
+/* --- 2. LAYOUT ENGINE --- */
+.wrapper {
+  display: grid;
+  grid-template-columns: var(--grid-desktop);
+  height: 100dvh;
+  width: 100%;
+}
+
+/* --- 3. VISUAL SIDE (Left) --- */
+.visual-side {
+  position: relative;
+  background-color: #d6d0c5;
+  overflow: hidden;
+}
+
+.visual-side img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.2s ease-out, transform 5s ease-out;
+  transform: scale(1);
+}
+
+.visual-side img.loaded {
+  opacity: 1;
+}
+
+.wrapper.zooming .visual-side img {
+  transform: scale(1.05);
+}
+
+/* --- 4. CONTENT SIDE (Right) --- */
+.content-side {
+  padding: clamp(2rem, 5vw, 6rem);
+  display: flex;
+  flex-direction: column;
+  /* Changed justify-content to accomodate the header logic */
+  position: relative;
+}
+
+/* HEADER WRAPPER (Logo + Desktop Socials) */
+.content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: auto; /* Pushes everything else down */
+}
+
+.logo {
+  font-family: "Cormorant Garamond", serif;
+  letter-spacing: 1px;
+  font-size: 1rem;
+  text-transform: uppercase;
+  color: #555;
+}
+
+/* SOCIAL NAV STYLES */
+.social-nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.social-nav a {
+  color: var(--text-color);
+  display: flex; /* Centers SVG */
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: color 0.3s ease;
+  padding: 10px; /* Touch target expansion */
+  margin: -10px; /* Counteract padding to keep visual alignment */
+}
+
+.social-nav a:hover {
+  color: var(--accent-color);
+}
+
+.social-nav svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+  stroke-width: 1.5; /* Matches font weight */
+  fill: none;
+}
+
+/* TEXT CONTENT */
+.hero-text {
+  margin-bottom: clamp(2rem, 4vh, 6rem);
+  margin-top: 4rem; /* Spacing from header */
+}
+
+h1 {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 400;
+  font-size: clamp(2.5rem, 5vw, 5.5rem);
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+p.subhead {
+  font-family: "Inter", sans-serif;
+  font-weight: 300;
+  font-size: clamp(1rem, 1.2vw, 1.4rem);
+  color: #666;
+  max-width: 400px;
+}
+
+/* FORM COMPONENT */
+.interaction-area {
+  position: relative;
+  min-height: 60px;
+  /* Ensure form isn't flush with bottom on desktop */
+  margin-bottom: 2rem;
+}
+
+.signup-form {
+  display: flex;
+  align-items: flex-end; /* Aligns input line with button bottom */
+  width: 100%;
+  max-width: 450px;
+  transition: opacity 0.5s ease;
+}
+/* .signup-form {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 450px;
+  transition: opacity 0.5s ease;
+} */
+
+.input-group {
+  flex-grow: 1;
+  position: relative; /* For ensuring click target works well */
+}
+/* .input-group {
+  flex-grow: 1;
+} */
+
+input[type="email"] {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #999;
+
+  /* FIX 3: Increased Padding = Bigger Click Target */
+  padding: 15px 0 10px 0;
+
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  color: var(--text-color);
+  outline: none;
+  border-radius: 0;
+  transition: border-color 0.3s;
+}
+
+input[type="email"]::placeholder {
+  color: #999;
+  transition: opacity 0.1s ease;
+}
+
+/* UX FIX: Placeholder disappears on focus */
+input[type="email"]:focus::placeholder {
+  opacity: 0;
+}
+
+/* UX FIX: Active line is darker (Visual Feedback) */
+input[type="email"]:focus {
+  border-bottom: 1px solid #555; /* Darker Grey */
+}
+
+/* --- UNIFIED SUBMIT BUTTON AREA --- */
+.submit-trigger {
+  display: flex;
+  align-items: center;
+  cursor: pointer; /* Shows hand cursor for text AND button */
+  margin-left: 20px;
+}
+
+/* input[type="email"] {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #999;
+  padding: 10px 0;
+  font-family: "Inter", sans-serif;
+  font-size: 1rem;
+  color: var(--text-color);
+  outline: none;
+  transition: border-color 0.3s;
+  border-radius: 0; /* Fix for iOS default styling } */
+
+/* input[type="email"]::placeholder {
+  color: #999;
+} */
+
+/* input[type="email"]:focus {
+  border-bottom: 1px solid var(--accent-color);
+} */
+
+button {
+  background: var(--accent-color);
+  border: none;
+  width: 40px;
+  height: 40px;
+  cursor: pointer; /* Keeps pointer just in case */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+
+  /* Reset margin because the wrapper handles spacing now */
+  margin-left: 0;
+}
+
+/* button {
+  background: var(--accent-color);
+  border: none;
+  width: 40px;
+  height: 40px;
+  margin-left: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+} */
+
+button svg {
+  stroke: white;
+  width: 20px;
+  height: 20px;
+}
+
+/* button svg {
+  stroke: white;
+  width: 20px;
+  height: 20px;
+} */
+
+/* button:hover {
+  background-color: #5f3921;
+  padding-left: 5px;
+} */
+/* --- THE HOVER MAGIC (CSS Only) --- */
+/* When you hover the WRAPPER, change the BUTTON */
+.submit-trigger:hover button {
+  background-color: #8e634a; /* The darker terracotta */
+  padding-left: 5px; /* The arrow slide effect */
+}
+
+/* When you hover the WRAPPER, change the TEXT */
+.submit-trigger:hover .notify-label {
+  color: #8e634a;
+}
+
+.notify-label {
+  margin-left: 15px;
+  font-size: 0.9rem;
+  color: var(--accent-color);
+  font-weight: 400;
+  transition: color 0.3s ease;
+  user-select: none; /* Prevents text highlighting when clicking fast */
+}
+
+/* .notify-label {
+  margin-left: 15px;
+  font-size: 0.9rem;
+  color: var(--accent-color);
+  font-weight: 400;
+  transition: color 0.3s ease;
+} */
+
+/* SUCCESS STATE */
+.success-message {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  pointer-events: none;
+  color: var(--accent-color);
+  font-family: "Cormorant Garamond", serif;
+  font-size: 1.25rem;
+  line-height: 1.4;
+  transform: translateY(10px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.success-message.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.signup-form.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* --- 5. SOCIAL MEDIA TOGGLE LOGIC --- */
+.mobile-only {
+  display: none;
+}
+.desktop-only {
+  display: flex;
+}
+
+@media (max-width: 768px) {
+  .wrapper {
+    grid-template-columns: 1fr;
+    grid-template-rows: 50% 50%;
+  }
+
+  .content-side {
+    padding: 2rem;
+    justify-content: flex-start; /* Reset vertical alignment */
+  }
+
+  /* HIDE Desktop Socials */
+  .desktop-only {
+    display: none !important;
+  }
+
+  /* SHOW Mobile Socials */
+  .mobile-only {
+    display: flex !important;
+    position: absolute;
+    bottom: 1.5rem; /* Anchor to bottom */
+    left: 50%;
+    transform: translateX(-50%); /* True Center */
+    z-index: 10;
+  }
+
+  .hero-text {
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 8vw, 3rem);
+    margin-bottom: 1rem;
+  }
+}
+/* --- COPYRIGHT FOOTER --- */
+.copyright {
+  position: absolute;
+  font-family: "Inter", sans-serif;
+  font-size: 0.75rem; /* Small and subtle */
+  color: #999; /* Muted text */
+
+  /* Desktop Placement: Aligned with the left padding */
+  bottom: 1.5rem;
+  left: clamp(2rem, 5vw, 6rem);
+
+  /* Ensure it sits above the background but doesn't block clicks */
+  z-index: 5;
+  pointer-events: none; /* Let clicks pass through if it overlaps anything */
+}
+
+/* --- MOBILE ADJUSTMENTS --- */
+@media (max-width: 768px) {
+  /* 1. Push the Social Icons UP to make room */
+  .mobile-only {
+    bottom: 3rem !important; /* increased from 1.5rem */
+  }
+
+  /* 2. Center the Copyright at the very bottom */
+  .copyright {
+    left: 0;
+    width: 100%;
+    text-align: center;
+    bottom: 1rem;
+    font-size: 0.65rem; /* Even smaller on mobile to save space */
+  }
+}

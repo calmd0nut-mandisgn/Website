@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MAND/SGN | Curated Affordable Luxury</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      /* CSS: The "Look and Feel" */
+      :root {
+        --bg-color: #f0dfbc; /* Off-white luxury paper color */
+        --text-color: #2c2c2c; /* Soft charcoal, not harsh black */
+        --accent-color: #8c8c8c;
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        font-family: "Lato", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+      }
+
+      .container {
+        text-align: center;
+        max-width: 600px;
+        padding: 40px;
+        border: 1px solid rgba(0, 0, 0, 0.05); /* Subtle border */
+      }
+
+      h1 {
+        font-family: "Playfair Display", serif;
+        font-size: 3rem;
+        letter-spacing: -1px;
+        margin-bottom: 0.5rem;
+        font-weight: 400;
+      }
+
+      .subtitle {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        color: var(--accent-color);
+        margin-bottom: 3rem;
+        display: block;
+      }
+
+      p.mission {
+        font-size: 1.4rem;
+        font-style: italic;
+        font-family: "Playfair Display", serif;
+        line-height: 1.5;
+        margin-bottom: 3rem;
+      }
+
+      .contact-btn {
+        text-decoration: none;
+        color: var(--text-color);
+        border: 1px solid var(--text-color);
+        padding: 15px 30px;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        transition: all 0.3s ease;
+      }
+
+      .contact-btn:hover {
+        background-color: var(--text-color);
+        color: #fff;
+      }
+
+      /* Mobile adjustments */
+      @media (max-width: 600px) {
+        h1 {
+          font-size: 2.2rem;
+        }
+        .container {
+          border: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>MAND/SGN</h1>
+      <span class="subtitle">Kuala Lumpur</span>
+
+      <p class="mission">"Towels that hug, dry, and inspire."</p>
+
+      <p style="font-size: 0.9rem; margin-bottom: 40px; color: #666">
+        We are currently sourcing partners for our upcoming collection.<br />
+        Affordable luxury is arriving soon.
+      </p>
+
+      <a href="mailto:contact@mandisgn.com" class="contact-btn"
+        >Partner With Us</a
+      >
+    </div>
+  </body>
+</html>

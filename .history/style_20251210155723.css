@@ -1,0 +1,33 @@
+css
+/* --- COPYRIGHT FOOTER --- */
+.copyright {
+  position: absolute;
+  font-family: "Inter", sans-serif;
+  font-size: 0.75rem; /* Small and subtle */
+  color: #999; /* Muted text */
+
+  /* Desktop Placement: Aligned with the left padding */
+  bottom: 1.5rem;
+  left: clamp(2rem, 5vw, 6rem);
+
+  /* Ensure it sits above the background but doesn't block clicks */
+  z-index: 5;
+  pointer-events: none; /* Let clicks pass through if it overlaps anything */
+}
+
+/* --- MOBILE ADJUSTMENTS --- */
+@media (max-width: 768px) {
+  /* 1. Push the Social Icons UP to make room */
+  .mobile-only {
+    bottom: 3rem !important; /* increased from 1.5rem */
+  }
+
+  /* 2. Center the Copyright at the very bottom */
+  .copyright {
+    left: 0;
+    width: 100%;
+    text-align: center;
+    bottom: 1rem;
+    font-size: 0.65rem; /* Even smaller on mobile to save space */
+  }
+}
