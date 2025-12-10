@@ -379,15 +379,15 @@ button svg {
   }
 
   /* Adjust Copyright for small screens */
-/* --- 2. COPYRIGHT (Fixed math so it reappears) --- */
+/* --- 2. COPYRIGHT (Moved up above the home bar) --- */
   .copyright {
     left: 0;
     width: 100%;
     text-align: center;
     font-size: 0.65rem;
     
-    /* FIX: Added 'calc()' inside the max() function */
-    bottom: max(1.5rem, calc(env(safe-area-inset-bottom) + 1rem));
+    /* FIX: Ensures it sits ABOVE the black swipe bar */
+    bottom: max(1.5rem, env(safe-area-inset-bottom) + 1rem);
   }
 /* --- COPYRIGHT FOOTER --- */
 .copyright {
