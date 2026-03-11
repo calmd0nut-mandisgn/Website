@@ -251,7 +251,7 @@ input[type="email"]:focus {
 }
 
 button {
-  background: #dfdcd4;
+  background: var(--accent-color);
   border: none;
   width: 40px;
   height: 40px;
@@ -274,13 +274,13 @@ button svg {
 /* --- THE HOVER MAGIC (CSS Only) --- */
 /* When you hover the WRAPPER, change the BUTTON */
 .submit-trigger:hover button {
-  background-color: #000000; /* The darker terracotta #583a29*/
+  background-color: #6d061e; /* The darker terracotta #583a29*/
   padding-left: 5px; /* The arrow slide effect */
 }
 
 /* When you hover the WRAPPER, change the TEXT */
 .submit-trigger:hover .notify-label {
-  color: #000000;
+  color: #8e634a;
 }
 
 .notify-label {
