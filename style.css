@@ -2,7 +2,7 @@
 :root {
   --bg-color: #f4f3ef;
   --text-color: #2c2c2c;
-  --accent-color: #a67b62; /* Muted Terracotta */
+  --accent-color: #96092b; /* Muted Terracotta a67b62 */
   --grid-desktop: 60fr 40fr;
   --grid-mobile: 1fr 1fr;
   --ease-slow: cubic-bezier(0.25, 1, 0.5, 1);
@@ -274,7 +274,7 @@ button svg {
 /* --- THE HOVER MAGIC (CSS Only) --- */
 /* When you hover the WRAPPER, change the BUTTON */
 .submit-trigger:hover button {
-  background-color: #583a29; /* The darker terracotta */
+  background-color: #6d061e; /* The darker terracotta #583a29*/
   padding-left: 5px; /* The arrow slide effect */
 }
 

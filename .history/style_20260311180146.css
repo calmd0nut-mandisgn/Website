@@ -2,7 +2,7 @@
 :root {
   --bg-color: #f4f3ef;
   --text-color: #2c2c2c;
-  --accent-color: #a67b62; /* Muted Terracotta */
+  --accent-color: #96092b; /* Muted Terracotta a67b62 */
   --grid-desktop: 60fr 40fr;
   --grid-mobile: 1fr 1fr;
   --ease-slow: cubic-bezier(0.25, 1, 0.5, 1);
@@ -154,6 +154,26 @@ h1 {
   color: #333;
 }
 
+/* Typewriter Cursor Effect */
+#typewriter {
+  color: var(
+    --text-color
+  ); /* Or use var(--accent-color) if you want it Terracotta */
+  border-right: 2px solid var(--accent-color); /* The blinking cursor */
+  padding-right: 4px;
+  animation: blinkCursor 0.75s step-end infinite;
+}
+
+@keyframes blinkCursor {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: var(--accent-color);
+  }
+}
+
 p.subhead {
   font-family: "Inter", sans-serif;
   font-weight: 300;
@@ -254,7 +274,7 @@ button svg {
 /* --- THE HOVER MAGIC (CSS Only) --- */
 /* When you hover the WRAPPER, change the BUTTON */
 .submit-trigger:hover button {
-  background-color: #583a29; /* The darker terracotta */
+  background-color: #6d061e; /* The darker terracotta #583a29*/
   padding-left: 5px; /* The arrow slide effect */
 }
 
@@ -365,7 +385,7 @@ button svg {
     z-index: 10;
 
     /* Place Socials above the copyright */
-    bottom: calc(1.5rem + env(safe-area-inset-bottom));
+    bottom: calc(4.5rem + env(safe-area-inset-bottom));
   }
 
   .social-nav.mobile-only svg {
@@ -379,7 +399,7 @@ button svg {
   .interaction-area {
     margin-bottom: 1rem;
     width: 100%;
-    bottom: calc(3rem + env(safe-area-inset-bottom));
+    bottom: calc(1.5rem + env(safe-area-inset-bottom));
   }
 
   .signup-form {
@@ -394,7 +414,7 @@ button svg {
     font-size: 0.65rem;
 
     /* Ensure it sits at the bottom, respecting iPhone home bar */
-    bottom: max(0.5rem, env(safe-area-inset-bottom));
+    bottom: max(2.5rem, env(safe-area-inset-bottom));
   }
 }
 

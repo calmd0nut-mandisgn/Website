@@ -117,6 +117,34 @@ body {
   margin-top: 4rem; /* Spacing from header */
 }
 
+.kicker {
+  font-family: "Inter", sans-serif;
+  font-size: 0.75rem; /* Approx 12px for readability */
+  text-transform: uppercase;
+  letter-spacing: 3px; /* Creates that airy, premium look */
+  font-weight: 500;
+  color: #888; /* Slightly lighter than the subhead for hierarchy */
+  margin-bottom: 1rem; /* Space between kicker and headline */
+  display: inline-block; /* Keeps it tight to the text */
+
+  /* Optional: A subtle entrance animation */
+  opacity: 0;
+  animation: fadeIn 1s ease-out forwards;
+  animation-delay: 0.2s; /* Appears slightly after page load */
+}
+
+/* Keyframe for the fade-in effect */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 h1 {
   font-family: "Cormorant Garamond", serif;
   font-weight: 400;
@@ -124,6 +152,26 @@ h1 {
   line-height: 1.1;
   margin-bottom: 1.5rem;
   color: #333;
+}
+
+/* Typewriter Cursor Effect */
+#typewriter {
+  color: var(
+    --text-color
+  ); /* Or use var(--accent-color) if you want it Terracotta */
+  border-right: 2px solid var(--accent-color); /* The blinking cursor */
+  padding-right: 4px;
+  animation: blinkCursor 0.75s step-end infinite;
+}
+
+@keyframes blinkCursor {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: var(--accent-color);
+  }
 }
 
 p.subhead {
@@ -144,14 +192,22 @@ p.subhead {
 
 .signup-form {
   display: flex;
-  align-items: center;
+  align-items: flex-end; /* Aligns input line with button bottom */
   width: 100%;
   max-width: 450px;
   transition: opacity 0.5s ease;
 }
+/* .signup-form {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 450px;
+  transition: opacity 0.5s ease;
+} */
 
 .input-group {
   flex-grow: 1;
+  position: relative; /* For ensuring click target works well */
 }
 
 input[type="email"] {
@@ -159,21 +215,39 @@ input[type="email"] {
   background: transparent;
   border: none;
   border-bottom: 1px solid #999;
-  padding: 10px 0;
+
+  /* FIX 3: Increased Padding = Bigger Click Target */
+  padding: 15px 0 10px 0;
+
   font-family: "Inter", sans-serif;
   font-size: 1rem;
   color: var(--text-color);
   outline: none;
+  border-radius: 0;
   transition: border-color 0.3s;
-  border-radius: 0; /* Fix for iOS default styling */
 }
 
 input[type="email"]::placeholder {
   color: #999;
+  transition: opacity 0.1s ease;
 }
 
+/* UX FIX: Placeholder disappears on focus */
+input[type="email"]:focus::placeholder {
+  opacity: 0;
+}
+
+/* UX FIX: Active line is darker (Visual Feedback) */
 input[type="email"]:focus {
-  border-bottom: 1px solid var(--accent-color);
+  border-bottom: 1px solid #555; /* Darker Grey */
+}
+
+/* --- UNIFIED SUBMIT BUTTON AREA --- */
+.submit-trigger {
+  display: flex;
+  align-items: center;
+  cursor: pointer; /* Shows hand cursor for text AND button */
+  margin-left: 20px;
 }
 
 button {
@@ -181,12 +255,14 @@ button {
   border: none;
   width: 40px;
   height: 40px;
-  margin-left: 20px;
-  cursor: pointer;
+  cursor: pointer; /* Keeps pointer just in case */
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.3s ease;
+  transition: all 0.1s ease;
+
+  /* Reset margin because the wrapper handles spacing now */
+  margin-left: 0;
 }
 
 button svg {
@@ -195,9 +271,16 @@ button svg {
   height: 20px;
 }
 
-button:hover {
-  background-color: #80461b;
-  padding-left: 5px;
+/* --- THE HOVER MAGIC (CSS Only) --- */
+/* When you hover the WRAPPER, change the BUTTON */
+.submit-trigger:hover button {
+  background-color: #6d06; /* The darker terracotta #583a29*/
+  padding-left: 5px; /* The arrow slide effect */
+}
+
+/* When you hover the WRAPPER, change the TEXT */
+.submit-trigger:hover .notify-label {
+  color: #8e634a;
 }
 
 .notify-label {
@@ -206,6 +289,7 @@ button:hover {
   color: var(--accent-color);
   font-weight: 400;
   transition: color 0.3s ease;
+  user-select: none; /* Prevents text highlighting when clicking fast */
 }
 
 /* SUCCESS STATE */
@@ -242,71 +326,110 @@ button:hover {
   display: flex;
 }
 
+/* --- 6. COPYRIGHT (Global Base Styles) --- */
+.copyright {
+  position: absolute;
+  font-family: "Inter", sans-serif;
+  font-size: 0.75rem;
+  color: #999;
+
+  /* Desktop Placement */
+  bottom: 1.5rem;
+  left: clamp(2rem, 5vw, 6rem);
+
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* --- 7. MOBILE RESPONSIVE OVERHAUL --- */
 @media (max-width: 768px) {
+  /* Layout Changes */
   .wrapper {
     grid-template-columns: 1fr;
-    grid-template-rows: 50% 50%;
+    grid-template-rows: 45vh 55vh; /* Image / Content Split */
   }
 
   .content-side {
-    padding: 2rem;
-    justify-content: flex-start; /* Reset vertical alignment */
+    padding: clamp(1.5rem, 6vw, 3rem);
+    justify-content: flex-start;
   }
 
-  /* HIDE Desktop Socials */
+  /* Typography Scaling */
+  h1 {
+    font-size: clamp(2rem, 8vw, 3rem);
+    margin-bottom: 0.75rem;
+  }
+
+  p.subhead {
+    font-size: clamp(0.9rem, 4vw, 1.1rem);
+    max-width: 90%;
+  }
+
+  .kicker {
+    font-size: 0.7rem;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Visibility Toggles */
   .desktop-only {
     display: none !important;
   }
 
-  /* SHOW Mobile Socials */
   .mobile-only {
-    display: flex !important;
-    position: absolute;
-    bottom: 1.5rem; /* Anchor to bottom */
+    display: flex;
+    gap: 32px;
+    align-items: center;
+    position: absolute; /* critical for placement */
     left: 50%;
-    transform: translateX(-50%); /* True Center */
+    transform: translateX(-50%);
     z-index: 10;
+
+    /* Place Socials above the copyright */
+    bottom: calc(4.5rem + env(safe-area-inset-bottom));
   }
 
-  .hero-text {
-    margin-top: 1rem;
-    margin-bottom: 2rem;
+  .social-nav.mobile-only svg {
+    width: 22px;
+    height: 22px;
+    stroke-width: 1.3px;
+    opacity: 0.9;
   }
 
-  h1 {
-    font-size: clamp(2rem, 8vw, 3rem);
+  /* Form Adjustments */
+  .interaction-area {
     margin-bottom: 1rem;
-  }
-}
-/* --- COPYRIGHT FOOTER --- */
-.copyright {
-  position: absolute;
-  font-family: "Inter", sans-serif;
-  font-size: 0.75rem; /* Small and subtle */
-  color: #999; /* Muted text */
-
-  /* Desktop Placement: Aligned with the left padding */
-  bottom: 1.5rem;
-  left: clamp(2rem, 5vw, 6rem);
-
-  /* Ensure it sits above the background but doesn't block clicks */
-  z-index: 5;
-  pointer-events: none; /* Let clicks pass through if it overlaps anything */
-}
-
-/* --- MOBILE ADJUSTMENTS --- */
-@media (max-width: 768px) {
-  /* 1. Push the Social Icons UP to make room */
-  .mobile-only {
-    bottom: 3rem !important; /* increased from 1.5rem */
+    width: 100%;
+    bottom: calc(1.5rem + env(safe-area-inset-bottom));
   }
 
-  /* 2. Center the Copyright at the very bottom */
+  .signup-form {
+    max-width: 100%;
+  }
+
+  /* Mobile Copyright Positioning */
   .copyright {
     left: 0;
     width: 100%;
     text-align: center;
-    bottom: 1rem;
-    font-size: 0.65rem; /* Even smaller on mobile to save space */
+    font-size: 0.65rem;
+
+    /* Ensure it sits at the bottom, respecting iPhone home bar */
+    bottom: max(2.5rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* --- 8. HEIGHT SAFETY (Optional but Recommended) --- */
+/* If the screen is very short (e.g. Mobile Landscape), allow scrolling */
+@media (max-height: 500px) {
+  body {
+    overflow-y: auto;
+  }
+  .wrapper {
+    height: auto;
+    min-height: 100dvh;
+    display: block; /* Stack everything normally */
+  }
+  .visual-side {
+    height: 300px; /* Fixed height for image in landscape */
   }
 }

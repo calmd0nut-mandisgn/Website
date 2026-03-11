@@ -2,7 +2,7 @@
 :root {
   --bg-color: #f4f3ef;
   --text-color: #2c2c2c;
-  --accent-color: #a67b62; /* Muted Terracotta */
+  --accent-color: #a67b62; /* Muted Terracotta a67b62 */
   --grid-desktop: 60fr 40fr;
   --grid-mobile: 1fr 1fr;
   --ease-slow: cubic-bezier(0.25, 1, 0.5, 1);
@@ -154,6 +154,26 @@ h1 {
   color: #333;
 }
 
+/* Typewriter Cursor Effect */
+#typewriter {
+  color: var(
+    --text-color
+  ); /* Or use var(--accent-color) if you want it Terracotta */
+  border-right: 2px solid var(--accent-color); /* The blinking cursor */
+  padding-right: 4px;
+  animation: blinkCursor 0.75s step-end infinite;
+}
+
+@keyframes blinkCursor {
+  from,
+  to {
+    border-color: transparent;
+  }
+  50% {
+    border-color: var(--accent-color);
+  }
+}
+
 p.subhead {
   font-family: "Inter", sans-serif;
   font-weight: 300;
@@ -254,7 +274,7 @@ button svg {
 /* --- THE HOVER MAGIC (CSS Only) --- */
 /* When you hover the WRAPPER, change the BUTTON */
 .submit-trigger:hover button {
-  background-color: #583a29; /* The darker terracotta */
+  background-color: #6d061e; /* The darker terracotta #583a29*/
   padding-left: 5px; /* The arrow slide effect */
 }
 
@@ -306,34 +326,43 @@ button svg {
   display: flex;
 }
 
-/* --- MOBILE RESPONSIVE OVERHAUL --- */
+/* --- 6. COPYRIGHT (Global Base Styles) --- */
+.copyright {
+  position: absolute;
+  font-family: "Inter", sans-serif;
+  font-size: 0.75rem;
+  color: #999;
+
+  /* Desktop Placement */
+  bottom: 1.5rem;
+  left: clamp(2rem, 5vw, 6rem);
+
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* --- 7. MOBILE RESPONSIVE OVERHAUL --- */
 @media (max-width: 768px) {
-  /* 1. FLUID LAYOUT: Stack vertically */
+  /* Layout Changes */
   .wrapper {
     grid-template-columns: 1fr;
-    /* Give the image 45% of height, content 55% */
-    grid-template-rows: 45vh 55vh;
+    grid-template-rows: 45vh 55vh; /* Image / Content Split */
   }
 
-  /* 2. DYNAMIC PADDING: Scales with screen width */
   .content-side {
-    /* "clamp" means: Minimum 1.5rem, Ideal 6% of screen, Max 3rem */
     padding: clamp(1.5rem, 6vw, 3rem);
     justify-content: flex-start;
   }
 
-  /* 3. FLUID TYPOGRAPHY: Fonts shrink automatically */
+  /* Typography Scaling */
   h1 {
-    /* 2rem on small phones, 3rem on big phones */
     font-size: clamp(2rem, 8vw, 3rem);
-    line-height: 1.1;
     margin-bottom: 0.75rem;
   }
 
   p.subhead {
-    /* 0.9rem on small phones, 1.1rem on big phones */
     font-size: clamp(0.9rem, 4vw, 1.1rem);
-    max-width: 90%; /* Prevent text hitting the edge */
+    max-width: 90%;
   }
 
   .kicker {
@@ -341,83 +370,66 @@ button svg {
     margin-bottom: 0.5rem;
   }
 
-  /* 4. DYNAMIC SOCIAL ICONS: Spacing scales with screen */
-  /* --- 1. SOCIAL ICONS (Moved up to be safe) --- */
-  .social-nav.mobile-only {
+  /* Visibility Toggles */
+  .desktop-only {
+    display: none !important;
+  }
+
+  .mobile-only {
+    display: flex;
     gap: 32px;
     align-items: center;
+    position: absolute; /* critical for placement */
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
 
-    /* FIX: Uses 'calc' to stay above the safe area + spacing */
-    bottom: calc(4rem + env(safe-area-inset-bottom));
+    /* Place Socials above the copyright */
+    bottom: calc(4.5rem + env(safe-area-inset-bottom));
   }
 
-  /* Keep your refined icon styles */
   .social-nav.mobile-only svg {
     width: 22px;
     height: 22px;
     stroke-width: 1.3px;
     opacity: 0.9;
-    transition: all 0.3s ease;
   }
 
-  /* 5. FORM ADJUSTMENT */
+  /* Form Adjustments */
   .interaction-area {
     margin-bottom: 1rem;
     width: 100%;
+    bottom: calc(1.5rem + env(safe-area-inset-bottom));
   }
 
   .signup-form {
-    max-width: 100%; /* Use full width available */
+    max-width: 100%;
   }
 
-  /* Hide Desktop elements */
-  .desktop-only {
-    display: none !important;
-  }
-
-  /* Adjust Copyright for small screens */
-/* --- 2. COPYRIGHT (Fixed math so it reappears) --- */
+  /* Mobile Copyright Positioning */
   .copyright {
     left: 0;
     width: 100%;
     text-align: center;
     font-size: 0.65rem;
-    
-    /* FIX: Added 'calc()' inside the max() function */
-    bottom: max(1.5rem, calc(env(safe-area-inset-bottom) + 1rem));
+
+    /* Ensure it sits at the bottom, respecting iPhone home bar */
+    bottom: max(2.5rem, env(safe-area-inset-bottom));
   }
-/* --- COPYRIGHT FOOTER --- */
-.copyright {
-  position: absolute;
-  font-family: "Inter", sans-serif;
-  font-size: 0.75rem; /* Small and subtle */
-  color: #999; /* Muted text */
-
-  /* Desktop Placement: Aligned with the left padding */
-  bottom: 1.5rem;
-  left: clamp(2rem, 5vw, 6rem);
-
-  /* Ensure it sits above the background but doesn't block clicks */
-  z-index: 5;
-  pointer-events: none; /* Let clicks pass through if it overlaps anything */
 }
 
-/* --- MOBILE ADJUSTMENTS --- */
-@media (max-width: 768px) {
-  /* 1. Push the Social Icons UP to make room */
-  .mobile-only {
-    bottom: 3rem !important; /* increased from 1.5rem */
+/* --- 8. HEIGHT SAFETY (Optional but Recommended) --- */
+/* If the screen is very short (e.g. Mobile Landscape), allow scrolling */
+@media (max-height: 500px) {
+  body {
+    overflow-y: auto;
   }
-
-  /* 2. Center the Copyright at the very bottom */
-  .copyright {
-    left: 0;
-    width: 100%;
-    text-align: center;
-    bottom: 1rem;
-    font-size: 0.65rem; /* Even smaller on mobile to save space */
+  .wrapper {
+    height: auto;
+    min-height: 100dvh;
+    display: block; /* Stack everything normally */
+  }
+  .visual-side {
+    height: 300px; /* Fixed height for image in landscape */
   }
 }
